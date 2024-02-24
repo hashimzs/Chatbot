@@ -1,0 +1,54 @@
+﻿@using Chatbot.Application.Shared
+@using chatbot2.Services
+
+<Link OnMouseRightClick="MouseRightClickHandler" OnBlur="OnBlurHandler" Href="@($"chat/{ChatInfo.Id}")">
+<img alt="Assistant" loading="lazy" width="36" height="36" decoding="async" data-nimg="1" class="BotImage_botImage__YvB45 ChatHistoryListItem_img__odvAt" style="color:transparent" srcset="https://psc2.cf2.poecdn.net/assets/_next/static/media/assistant.b077c338.svg 1x, https://psc2.cf2.poecdn.net/assets/_next/static/media/assistant.b077c338.svg 2x" src="https://psc2.cf2.poecdn.net/assets/_next/static/media/assistant.b077c338.svg" />
+<div class="chat-info-container">
+    <div class="fr">
+        <div class="bot-type">Assistant</div>
+        <div class="date-created">Feb 14</div>
+    </div>
+    <p>To call javascript method from blazor...</p>
+</div>
+</Link>
+@if (ShowOptions)
+{
+    <button class="context-menu" style="top:@(YPos)px; left:@(XPos)px" @onclick="DeleteChat" @onmouseover="()=>MouseOverContext=true" @onmouseout="()=>MouseOverContext=false">
+        <i class="fa-regular fa-trash-can"></i>
+        Delete
+    </button>
+}
+
+@code {
+    [Inject]
+    public ChatService chatService { get; set; } = null!;
+    [Parameter]
+    public ChatInfoDto ChatInfo { get; set; } = new();
+    public double XPos { get; set; }
+    public double YPos { get; set; }
+
+    public bool ShowOptions { get; set; }
+    public bool MouseOverContext { get; set; }
+
+    public void MouseRightClickHandler(MouseEventArgs args)
+    {
+        XPos = args.ClientX;
+        YPos = args.ClientY;
+        ShowOptions = true;
+    }
+
+    public void OnBlurHandler()
+    {
+        if (!MouseOverContext)
+            ShowOptions = false;
+    }
+
+    public async Task DeleteChat()
+    {
+        Console.WriteLine("hello");
+        await this.chatService.DeleteChat(ChatInfo.Id);
+        ShowOptions = false;
+    }
+
+
+}

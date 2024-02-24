@@ -1,0 +1,56 @@
+﻿
+.loader {
+    height: 100%;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+}
+
+.loader-wheel {
+    animation: spin 1s infinite linear;
+    border: 2px solid var(--accent-base);
+    border-left: 4px solid #fff;
+    border-radius: 50%;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
+.loader-text {
+    font-size:1rem;
+    font-weight:bold;
+    color: var(--accent-base);
+    font-family: arial, sans-serif;
+}
+
+    .loader-text:after {
+        content: 'Generating response';
+        animation: load 2s linear infinite;
+    }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes load {
+    0% {
+        content: 'Generating response';
+    }
+
+    33% {
+        content: 'Generating response.';
+    }
+
+    67% {
+        content: 'Generating response..';
+    }
+
+    100% {
+        content: 'Generating response...';
+    }
+}

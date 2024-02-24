@@ -1,0 +1,38 @@
+﻿@using Chatbot.Application.Shared
+@using chatbot2.Components
+@using chatbot2.Services
+@page "/chats"
+
+<PageLayout Title="All chats">
+    <div>
+        @foreach (var chat in Chats)
+        {
+            <ChatLink ChatInfo="chat" />
+        }
+    </div>
+</PageLayout>
+
+@code {
+
+    [Inject]
+    public ChatService chatService { get; set; } = null!;
+    public PaginationParams paginationParams { get; set; } = new();
+
+    public List<ChatInfoDto> Chats { get; set; } = PlaceHolderData.Chats.ToList();
+
+    protected override void OnInitialized()
+    {
+        chatService.OnChatDeleted += RemoveChat;
+    }
+
+    public void RemoveChat(int Id)
+    {
+        Chats.RemoveAll(v => v.Id == Id);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        chatService.OnChatDeleted -= RemoveChat;
+    }
+}

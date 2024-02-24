@@ -1,0 +1,32 @@
+﻿
+
+<input @bind-value="Value" placeholder="@Placeholder" @onkeyup="EnterClickedHandler" />
+
+@code {
+    [Parameter]
+    public string Placeholder { get; set; } = string.Empty;
+    [Parameter]
+    public string Value
+    {
+        get => _value; set
+        {
+            if (_value == value) return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<string> OnEnterClicked { get; set; }
+    private string _value { get; set; } = string.Empty;
+
+    public void EnterClickedHandler(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+            OnEnterClicked.InvokeAsync(Value);
+
+        Value = string.Empty;
+    }
+
+}

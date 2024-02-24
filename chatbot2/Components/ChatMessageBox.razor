@@ -1,0 +1,11 @@
+﻿@using Chatbot.Application.Shared
+<p class="message @UserMessageClass">
+    @Message.Message
+</p>
+
+@code {
+    [Parameter]
+    public ChatMessage Message { get; set; } = new ChatMessage();
+
+    public string UserMessageClass { get => Message.IsUser ? "user" : ""; }
+}

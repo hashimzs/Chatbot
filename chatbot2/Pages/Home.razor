@@ -1,0 +1,33 @@
+﻿@page "/"
+@using chatbot2.Components
+@using chatbot2.Services
+
+
+<div class="page-container">
+    <div class="top-section">
+        <Microsoft.AspNetCore.Components.Sections.SectionOutlet SectionName="BodyToggle" />
+    </div>
+    <div class="main-section">
+        <div>
+            Logo
+        </div>
+        <MdInputBox Placeholder="Start a new chat" OnEnterClicked="OnEnterClicked"/>
+    </div>
+</div>
+
+
+@code {
+    [Inject]
+    public ChatService chatService { get; set; } = null!;
+    [Inject]
+    public NavigationManager navigationManager { get; set; } = null!;
+
+    public async Task OnEnterClicked(string Value)
+    {
+        var chat = await this.chatService.CreateNewChat(Value);
+        navigationManager.NavigateTo($"chat/{chat.Id}");
+    }
+}
+
+
+

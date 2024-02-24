@@ -1,0 +1,136 @@
+﻿@page "/chat/{Id:int}"
+@using Chatbot.Application.Shared
+@using chatbot2.Components
+@using chatbot2.Services
+@implements IDisposable
+
+
+<PageLayout>
+    <ChildContent>
+        <div id="mcon" class="messages-container">
+            @foreach (var message in Messages)
+            {
+                <ChatMessageBox Message="message" />
+            }
+            @if (GeneratingResponse)
+            {
+                <div class="loading-indicator">
+                    <LoadingIndicator />
+                </div>
+            }
+        </div>
+    </ChildContent>
+    <Footer>
+        <chatbot2.Components.MdInputBox Placeholder="Talk to the advisor" OnEnterClicked="OnEnterClickedHanlder" />
+    </Footer>
+</PageLayout>
+
+
+
+
+@code {
+    [Inject]
+    public NavigationManager navigationManager { get; set; } = null!;
+    [Inject]
+    public ChatService chatService { get; set; } = null!;
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; } = null!;
+    [Parameter]
+    public int Id { get; set; }
+
+    List<ChatMessage> Messages = new List<ChatMessage>
+    {
+        new ChatMessage { Id = 1, Message = "Hello, how can I assist you today?", IsUser = true },
+        new ChatMessage { Id = 2, Message = "Hi there! I'm an AI chatbot ready to help you.", IsUser = false },
+        new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+           new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
+   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
+        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false }
+
+    };
+
+
+    public bool ScrollBottomAfterRender { get; set; } = true;
+    public bool GeneratingResponse { get; set; }
+
+    protected override void OnInitialized()
+    {
+        this.chatService.OnChatDeleted += OnChatDeleted;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (ScrollBottomAfterRender)
+        {
+            await ScrollToBottom();
+            ScrollBottomAfterRender = false;
+        }
+
+    }
+
+    public void OnChatDeleted(int Id)
+    {
+        if (this.Id == Id)
+            navigationManager.NavigateTo("");
+    }
+
+    public async Task OnEnterClickedHanlder(string Message)
+    {
+        var NewMessage = new ChatMessage
+            {
+                ChatId = Id,
+                Message = Message,
+                IsUser = true,
+            };
+
+        Messages.Add(NewMessage);
+        GeneratingResponse = true;
+        ScrollBottomAfterRender = true;
+
+
+        var response = await this.chatService.GetBotRespose(NewMessage);
+        GeneratingResponse = false;
+        Messages.Add(response);
+
+        ScrollBottomAfterRender = true;
+
+    }
+
+    async Task ScrollToBottom()
+    {
+        await JSRuntime.InvokeVoidAsync("scrollToBottom", "main-section");
+    }
+
+    public void Dispose()
+    {
+        this.chatService.OnChatDeleted -= OnChatDeleted;
+    }
+}
+
+<style>
+    .main-section {
+        width: 100% !important;
+    }
+</style>
