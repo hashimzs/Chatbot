@@ -18,3 +18,8 @@
     width: min(var(--body-max-width),100%);
     margin: 200px auto;
 }
+
+h1 {
+    color: var(--accent-emphasis);
+    font-size:60px
+}

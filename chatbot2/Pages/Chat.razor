@@ -38,36 +38,20 @@
     [Parameter]
     public int Id { get; set; }
 
-    List<ChatMessage> Messages = new List<ChatMessage>
+    List<ChatMessageDto> Messages = new List<ChatMessageDto>
     {
-        new ChatMessage { Id = 1, Message = "Hello, how can I assist you today?", IsUser = true },
-        new ChatMessage { Id = 2, Message = "Hi there! I'm an AI chatbot ready to help you.", IsUser = false },
-        new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-           new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false },
-   new ChatMessage { Id = 3, Message = "How are you doing? Let me know if you have any questions.", IsUser = true },
-        new ChatMessage { Id = 4, Message = "I'm doing well, thanks! Feel free to ask me anything you'd like.", IsUser = false }
+        new ChatMessageDto { Id = 1, Message = "Shall I invest in Adani power right now", IsUser = true },
+        new ChatMessageDto { Id = 1, Message =@"Investment Thesis for Adani Power:
+
+1. Strong Financials: Adani Power has shown consistent growth in its financials over the past three years. The company has a positive tangible book value, indicating a strong asset base. Additionally, the company has a high invested capital, which suggests a strong financial position.
+2. Increasing Stock Price: The stock price of Adani Power has been increasing steadily over the past few days. This indicates positive investor sentiment and potential for further growth in the future.
+3. Declining Revenues: Adani Power has reported declining revenues in its recent quarterly results. This could be a concern for investors as it may indicate a slowdown in the company's business operations. However, further analysis is required to determine the reasons behind the decline and its potential impact on future performance.
+4. Positive News Coverage: Adani Power has been in the news recently, with multiple articles highlighting the company's performance and prospects. Positive news coverage can attract more investors and potentially drive up the stock price.
+5. Power Sector Outlook: The power sector in India is expected to grow in the coming years due to increasing demand for electricity. Adani Power, being a major player in the sector, is well-positioned to benefit from this growth. However, it is important to consider the competitive landscape and regulatory environment of the sector before making an investment decision.
+
+Conclusion:
+Based on the available data, investing in Adani Power right now could be a favorable option. The company has strong financials and a positive stock price trend. However, it is important to conduct further research and analysis to fully understand the reasons behind the declining revenues and assess the potential risks associated with the power sector.", IsUser = false},
+     
 
     };
 
@@ -98,7 +82,7 @@
 
     public async Task OnEnterClickedHanlder(string Message)
     {
-        var NewMessage = new ChatMessage
+        var NewMessage = new ChatMessageDto
             {
                 ChatId = Id,
                 Message = Message,

@@ -16,11 +16,11 @@ namespace chatbot2.Services
             return new PagedList<ChatInfoDto>(PlaceHolderData.Chats, PlaceHolderData.Chats.Count, paginationParams.PageNumber, paginationParams.PageSize);
         }
 
-        public async Task<ChatMessage> GetBotRespose(ChatMessage chatMessage)
+        public async Task<ChatMessageDto> GetBotRespose(ChatMessageDto chatMessage)
         {
             await Task.Delay(10000);
 
-            return new ChatMessage
+            return new ChatMessageDto
             {
                 IsUser=false,
                 Message="its ok brother we can talk about it"
@@ -43,50 +43,7 @@ namespace chatbot2.Services
             {
                 Id = 1,
                 DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-            },
-            new ChatInfoDto
-            {
-                Id = 2,
-                DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-            },
-            new ChatInfoDto
-            {
-                Id = 3,
-                DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-            },
-            new ChatInfoDto
-            {
-                Id = 4,
-                DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-            },
-            new ChatInfoDto
-            {
-                Id = 5,
-                DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-            },
-            new ChatInfoDto
-            {
-                Id = 6,
-                DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-            },
-            new ChatInfoDto
-            {
-                Id = 7,
-                DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-            },
-            new ChatInfoDto
-            {
-                Id = 8,
-                DateCreated = DateTime.Now,
-                FirstMessage = "what is the difference between a blazor web assembly and blazor server",
-
+                FirstMessage = "Should i buy nividia stocks",
             },
 
         };

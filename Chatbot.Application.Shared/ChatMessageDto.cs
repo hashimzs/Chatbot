@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chatbot.Application.Shared
 {
-    public class ChatMessage
+    public class ChatMessageDto
     {
         public int Id { get; set; }
         public int ChatId { get; set; }

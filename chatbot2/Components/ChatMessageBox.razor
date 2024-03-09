@@ -1,11 +1,11 @@
 ﻿@using Chatbot.Application.Shared
 <p class="message @UserMessageClass">
-    @Message.Message
+    @((MarkupString)Message.Message)
 </p>
 
 @code {
     [Parameter]
-    public ChatMessage Message { get; set; } = new ChatMessage();
+    public ChatMessageDto Message { get; set; } = new ChatMessageDto();
 
     public string UserMessageClass { get => Message.IsUser ? "user" : ""; }
 }

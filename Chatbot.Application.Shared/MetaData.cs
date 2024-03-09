@@ -26,7 +26,9 @@ namespace Chatbot.Application.Shared
 			List = items;
 
 		}
-	}
+
+      
+    }
 	public class MetaData
 	{
 		public int CurrentPage { get; set; }
