@@ -1,9 +1,17 @@
 ﻿using Chatbot.Application.Shared;
+using Chatbot.Application.Shared.ReqDtos;
+using System.Net.Http.Json;
 
 namespace chatbot2.Services
 {
     public class ChatService
     {
+        private readonly HttpClient httpClient;
+
+        public ChatService(HttpClient httpClient)
+        {
+            this.httpClient = httpClient;
+        }
 
         public Action<int> OnChatDeleted { get; set; }
         public async Task<ChatInfoDto> CreateNewChat(string Message)
@@ -13,23 +21,34 @@ namespace chatbot2.Services
 
         public async Task<PagedList<ChatInfoDto>> GetChats(PaginationParams paginationParams)
         {
-            return new PagedList<ChatInfoDto>(PlaceHolderData.Chats, PlaceHolderData.Chats.Count, paginationParams.PageNumber, paginationParams.PageSize);
+            return await this.httpClient.GetFromJsonAsync<PagedList<ChatInfoDto>>($"api/chat?pagenumber={paginationParams.PageNumber}&pagesize={paginationParams.PageSize}")!;
         }
 
         public async Task<ChatMessageDto> GetBotRespose(ChatMessageDto chatMessage)
         {
-            await Task.Delay(10000);
+            var req = new QuesReqDto { ChatId=chatMessage.ChatId,Message=chatMessage.Message };
 
-            return new ChatMessageDto
+            var response = await this.httpClient.PostAsJsonAsync<QuesReqDto>("api/chat",req);
+
+            if(!response.IsSuccessStatusCode)
             {
-                IsUser=false,
-                Message="its ok brother we can talk about it"
-            };
+                var content=await response.Content.ReadAsStringAsync();
+                throw new Exception(content);
+            }
+
+            var ChatReply = await response.Content.ReadFromJsonAsync<ChatMessageDto>();
+
+            return ChatReply!;
         }
 
         public async Task DeleteChat(int Id)
         {
-            if(OnChatDeleted != null) 
+            var response = await this.httpClient.DeleteAsync($"api/chat/{Id}");
+
+            if (!response.IsSuccessStatusCode)
+                return;
+
+            if (OnChatDeleted != null)
                 OnChatDeleted.Invoke(Id);
         }
 

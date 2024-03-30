@@ -1,0 +1,14 @@
+﻿button{
+    background-color:var(--accent-base);
+    color:white;
+    border:none;
+    padding:0.2rem;
+    font-size:1rem;
+    border-radius:0.2rem;
+    transition:0.2s ease;
+}
+
+
+button:hover{
+    background-color:var(--accent-emphasis)
+}

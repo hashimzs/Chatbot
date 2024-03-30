@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "chatbot2", "chatbot2\chatbo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatbot.Application.Shared", "Chatbot.Application.Shared\Chatbot.Application.Shared.csproj", "{7AD7972A-DC27-4F6E-B344-106AE3C85C80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatbot.Api", "Chatbot.Api\Chatbot.Api.csproj", "{6DB7D2DA-8020-4A36-AC20-C472BD4355E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatbot.Api", "Chatbot.Api\Chatbot.Api.csproj", "{6DB7D2DA-8020-4A36-AC20-C472BD4355E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

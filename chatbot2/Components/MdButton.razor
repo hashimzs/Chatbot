@@ -1,0 +1,12 @@
+﻿<button @onclick="OnClick" type="@Type">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public string Type { get; set; } = "button";
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

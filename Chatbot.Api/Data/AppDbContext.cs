@@ -17,6 +17,8 @@ namespace Chatbot.Api.Data
             {
                 e.HasKey(e => e.Id);
 
+                e.Property(e=>e.Id).ValueGeneratedOnAdd();
+
                 e.HasMany(v => v.Messages)
                 .WithOne(v => v.Chat)
                 .HasForeignKey(v => v.ChatId);
@@ -33,6 +35,8 @@ namespace Chatbot.Api.Data
             modelBuilder.Entity<ChatMessage>((e) =>
             {
                 e.HasKey(e => e.Id);
+
+                e.Property(e => e.Id).ValueGeneratedOnAdd();
             });
         }
     }

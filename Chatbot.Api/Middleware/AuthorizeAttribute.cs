@@ -8,9 +8,8 @@ namespace Chatbot.Api.Middleware
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var userId = (int?)context.HttpContext.Items["userId"];
-            var BackUpTokenUser = (int?)context.HttpContext.Items["BackupTokenUserId"];
-            if (userId == null && BackUpTokenUser == null)
+            var userId = context.HttpContext.Items["User"];
+            if (userId == null )
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }

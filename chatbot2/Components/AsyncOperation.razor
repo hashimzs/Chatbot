@@ -1,0 +1,12 @@
+﻿@code {
+    [Parameter]
+    public EventCallback AsyncOpertaion { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            AsyncOpertaion.InvokeAsync();
+        }
+    }
+}

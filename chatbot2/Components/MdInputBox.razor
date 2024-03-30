@@ -1,6 +1,11 @@
-﻿
-
-<input @bind-value="Value" placeholder="@Placeholder" @onkeyup="EnterClickedHandler" />
+﻿@if (IsDisabled)
+{
+    <input @bind-value="Value" placeholder="@Placeholder" disabled @onkeyup="EnterClickedHandler" />
+}
+else
+{
+    <input @bind-value="Value" placeholder="@Placeholder" @onkeyup="EnterClickedHandler" />
+}
 
 @code {
     [Parameter]
@@ -19,6 +24,10 @@
     public EventCallback<string> ValueChanged { get; set; }
     [Parameter]
     public EventCallback<string> OnEnterClicked { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
     private string _value { get; set; } = string.Empty;
 
     public void EnterClickedHandler(KeyboardEventArgs args)

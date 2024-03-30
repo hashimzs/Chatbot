@@ -6,6 +6,6 @@
         public int UserId { get; set; }
         public DateTime Created { get; set; }
         public virtual List<ChatMessage> Messages { get; set; }=new List<ChatMessage>();
-        public virtual User User { get; set; } = new User();
+        public virtual User User { get; set; } = null!;
     }
 }

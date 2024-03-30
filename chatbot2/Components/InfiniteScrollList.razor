@@ -1,0 +1,39 @@
+﻿@using Ljbc1994.Blazor.IntersectionObserver.Components
+@using Chatbot.Application.Shared.Extensions
+@typeparam TValue
+
+@foreach (var item in Items.Enumerate())
+{
+    var value = item.Value;
+    @if (IsLastItem(item))
+    {
+        <IntersectionObserve>
+            <div class="last-item-container" @ref="context.Ref.Current">
+                @ChildContent(value)
+            </div>
+            @if (context.IsIntersecting)
+            {
+                <AsyncOperation AsyncOpertaion="@GetNextSet" />
+            }
+        </IntersectionObserve>
+    }
+    else
+    {
+        @ChildContent(value)
+    }
+
+}
+@if (IsLoading )
+{
+    @if (IsLoading && LoadingTemplate == null)
+    {
+        <div class="spinner-container">
+            <LoadingIndicator />
+        </div>
+    }
+    else
+    {
+        @LoadingTemplate
+    }
+}
+

@@ -26,6 +26,18 @@ namespace Chatbot.Api.Extensions
                 IsUser = v.IsUser,
             });
         }
+
+        public static ChatMessageDto ToMessageDto(this ChatMessage message)
+        {
+            return new ChatMessageDto
+            {
+                Id = message.Id,
+                ChatId = message.ChatId,
+                Message = message.Message,
+                IsUser = message.IsUser,
+            };
+        }
+
         public static async Task<PagedList<T>> ToPagedList<T>(this IQueryable<T> source, int pageNumber, int pageSize)
         {
             var count = await source.CountAsync();

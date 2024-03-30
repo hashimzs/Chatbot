@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Chatbot.Application.Shared.ReqDtos
 @using chatbot2.Components
 @using chatbot2.Services
 
@@ -11,7 +12,7 @@
         <h1>
             Wealth Bot
         </h1>
-        <MdInputBox Placeholder="Start a new chat" OnEnterClicked="OnEnterClicked"/>
+        <MdInputBox Placeholder="Start a new chat" OnEnterClicked="OnEnterClicked" />
     </div>
 </div>
 
@@ -24,8 +25,8 @@
 
     public async Task OnEnterClicked(string Value)
     {
-        var chat = await this.chatService.CreateNewChat(Value);
-        navigationManager.NavigateTo($"chat/{chat.Id}");
+        var chat = await this.chatService.GetBotRespose(new Chatbot.Application.Shared.ChatMessageDto { Message = Value });
+        navigationManager.NavigateTo($"chat/{chat.ChatId}");
     }
 }
 

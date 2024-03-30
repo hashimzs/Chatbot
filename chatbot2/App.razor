@@ -1,12 +1,38 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿@using chatbot2.Services
+@if (render)
+{
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+}
+
+
+
+@code {
+    [Inject]
+    public AuthService authService { get; set; } = null!;
+    [Inject]
+    public NavigationManager navigationManager { get; set; } = null!;
+
+    public bool render { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (await this.authService.IsLoggedIn())
+            await this.authService.AddDefaultReqHeaders();
+        else
+            navigationManager.NavigateTo("login");
+
+        render = true;
+    }
+
+
+}

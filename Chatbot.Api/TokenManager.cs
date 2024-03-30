@@ -9,7 +9,7 @@ namespace Chatbot.Api
     public class TokenManager
     {
 
-        public string Secret = "fesfsfdadadawdasdawd";
+        public string Secret = "fesfsfdadadawdasdawddwafessefsefsefsefsdfsefsdfsefsefsdfsefsdfsefsdfsefsdfsergsdawdawsaefsdcvwaaXCASEGDFED";
 
         private readonly IConfiguration configuration;
 

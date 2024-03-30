@@ -5,10 +5,9 @@
 
 <PageLayout Title="All chats">
     <div>
-        @foreach (var chat in Chats)
-        {
+        <InfiniteScrollList TValue="ChatInfoDto" Context="chat" Url="api/chat">
             <ChatLink ChatInfo="chat" />
-        }
+        </InfiniteScrollList>
     </div>
 </PageLayout>
 
