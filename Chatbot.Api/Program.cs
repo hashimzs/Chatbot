@@ -18,6 +18,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 //builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseMySQL(builder.Configuration.GetConnectionString("OnlineConnection"))
+//);
+
+
+//builder.Services.AddDbContext<AppDbContext>(options =>
 //    options.UseNpgsql(builder.Configuration.GetConnectionString("OnlineConnection"))
 //);
 
