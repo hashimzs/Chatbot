@@ -5,9 +5,9 @@
 @using chatbot2.Services
 
 <FormPage Model="registerReqDto" Title="Register" OnValidSumbit="RegisterClickedHandler">
-    <MdInputBox2 Title="Username" @bind-Value="registerReqDto.Name" ValidationFor="()=>registerReqDto.Name" />
-    <MdInputBox2 Type="email" Title="Email" @bind-Value="registerReqDto.Email" ValidationFor="()=>registerReqDto.Email" />
-    <MdInputBox2 Type="password" Title="Password" @bind-Value="registerReqDto.Password" ValidationFor="()=>registerReqDto.Password" />
+    <MdInputBox Title="Username" @bind-Value="registerReqDto.Name" ValidationFor="()=>registerReqDto.Name" />
+    <MdInputBox Type="email" Title="Email" @bind-Value="registerReqDto.Email" ValidationFor="()=>registerReqDto.Email" />
+    <MdInputBox Type="password" Title="Password" @bind-Value="registerReqDto.Password" ValidationFor="()=>registerReqDto.Password" />
     <p style="font-size:0.8rem">already have an account <a href="login">login</a></p>
     <MdButton Type="submit">
         Register

@@ -1,15 +1,26 @@
-﻿@if (IsDisabled)
-{
-    <input @bind-value="Value" placeholder="@Placeholder" disabled @onkeyup="EnterClickedHandler" />
-}
-else
-{
-    <input @bind-value="Value" placeholder="@Placeholder" @onkeyup="EnterClickedHandler" />
-}
+﻿@using System.Linq.Expressions
+<div>
+    <div class="input-container @FilledClass">
+        <div class="input-title">
+            @Title
+        </div>
+        <input @bind-value="Value" type="@Type" />
+
+    </div>
+    @if (ValidationFor != null)
+    {
+        <div class="validation-messages">
+            <ValidationMessage For="ValidationFor" />
+        </div>
+    }
+</div>
+
 
 @code {
     [Parameter]
-    public string Placeholder { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
     [Parameter]
     public string Value
     {
@@ -23,19 +34,10 @@ else
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
     [Parameter]
-    public EventCallback<string> OnEnterClicked { get; set; }
+    public Expression<Func<object>>? ValidationFor { get; set; }
 
-    [Parameter]
-    public bool IsDisabled { get; set; }
+    public string FilledClass { get => string.IsNullOrEmpty(Value) ? "" : "filled"; }
 
     private string _value { get; set; } = string.Empty;
-
-    public void EnterClickedHandler(KeyboardEventArgs args)
-    {
-        if (args.Key == "Enter")
-            OnEnterClicked.InvokeAsync(Value);
-
-        Value = string.Empty;
-    }
 
 }

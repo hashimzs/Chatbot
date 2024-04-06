@@ -1,0 +1,44 @@
+﻿
+<div class="text-container">
+    @if (IsDisabled)
+    {
+        <textarea rows="1" @bind="Value" placeholder="@Placeholder" disabled @onkeyup="EnterClickedHandler" />
+    }
+    else
+    {
+        <textarea rows="1" @bind="Value" placeholder="@Placeholder" @onkeyup="EnterClickedHandler" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Placeholder { get; set; } = string.Empty;
+    [Parameter]
+    public string Value
+    {
+        get => _value; set
+        {
+            if (_value == value) return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<string> OnEnterClicked { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    private string _value { get; set; } = string.Empty;
+
+    public void EnterClickedHandler(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+            OnEnterClicked.InvokeAsync(Value);
+
+        Value = string.Empty;
+    }
+
+}

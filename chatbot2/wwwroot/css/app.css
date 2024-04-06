@@ -88,20 +88,5 @@ code {
 
 
 :root {
-    --bg-base: #fff;
-    --bg-faint: #f7f7f7;
-    --bg-subtle: #f1f2f2;
-    --bg-muted: #e4e7e7;
-    --bg-emphasis: #a5acac;
-    --accent-base: #5d5cde;
-    --accent-faint: #ebecff;
-    --accent-subtle: #d2d2fe;
-    --accent-muted: #7878f2;
-    --accent-emphasis: #3b3abe;
-    --accent-bold: #1e1e80;
-    --border-base: #e4e7e7;
-    --border-emphasis: #cfd3d3;
-    --button-hover: linear-gradient(rgb(0 0 0/3%) 0 0);
-    --red: #ad1840;
     --body-max-width: 48rem;
 }
