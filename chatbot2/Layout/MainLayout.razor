@@ -48,6 +48,7 @@
     public string SideBarClass { get => IsCollapsed ? "collapse" : ""; }
     public string SideBarClass2 { get => IsExpanded ? "expand" : ""; }
 
+
     protected override async Task OnInitializedAsync()
     {
         if (!await this.authService.IsLoggedIn())

@@ -12,7 +12,16 @@
         <h1>
             Wealth Bot
         </h1>
-        <MdTextBox Placeholder="Start a new chat" OnEnterClicked="OnEnterClicked" />
+        @if (IsLoading)
+        {
+            <div class="loading-container">
+                <LoadingIndicator />
+            </div>
+        }
+        else
+        {
+            <MdTextBox Placeholder="Start a new chat" OnEnterClicked="OnEnterClicked" />
+        }
     </div>
 </div>
 
@@ -23,10 +32,25 @@
     [Inject]
     public NavigationManager navigationManager { get; set; } = null!;
 
+    public bool IsLoading { get; set; }
+
     public async Task OnEnterClicked(string Value)
     {
-        var chat = await this.chatService.GetBotRespose(new Chatbot.Application.Shared.ChatMessageDto { Message = Value });
-        navigationManager.NavigateTo($"chat/{chat.ChatId}");
+        try
+        {
+            IsLoading = true;
+            var chat = await this.chatService.GetBotRespose(new Chatbot.Application.Shared.ChatMessageDto { Message = Value });
+            navigationManager.NavigateTo($"chat/{chat.ChatId}");
+
+        }
+        catch (Exception)
+        {
+
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 }
 

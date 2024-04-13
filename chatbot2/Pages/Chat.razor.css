@@ -21,7 +21,19 @@
     margin:1rem 0;
 }
 
+.try-again-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+::deep .try-again-container button {
+    padding:0.4rem 1.3rem;
+    font-size:1.2rem
+}
+
 ::deep .last-item-container {
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
 }

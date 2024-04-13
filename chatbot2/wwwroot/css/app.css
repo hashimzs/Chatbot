@@ -90,3 +90,12 @@ code {
 :root {
     --body-max-width: 48rem;
 }
+
+
+.blazored-toast-error {
+    background-color: var(--accent-base) !important;
+}
+
+.blazored-toast-message {
+    color: white;
+}

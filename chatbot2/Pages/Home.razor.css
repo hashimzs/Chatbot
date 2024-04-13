@@ -23,3 +23,8 @@ h1 {
     color: var(--accent-emphasis);
     font-size:60px
 }
+
+.loading-container{
+    height:30px;
+    white-space:nowrap;
+}

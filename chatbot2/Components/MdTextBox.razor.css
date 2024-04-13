@@ -1,6 +1,6 @@
 ﻿.text-container {
-    display: flex;
-    align-items: center;
+    display: grid;
+    align-items: stretch;
     background-color: var(--bg-base);
     border: 1px solid var(--border-base);
     border-radius: 2rem;
@@ -13,19 +13,30 @@
         outline: none;
     }
 
+    textarea, .text-container:after {
+        background-color: transparent;
+        font-size: 15px;
+        line-height: 17.5px;
+        border: none;
+        padding: 0;
+        margin: 0;
+        max-height: 100px;
+        overflow-x: hidden;
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
 textarea {
-    background-color: transparent;
-    font-size: 15px;
-    line-height: 17.5px;
-    border: none;
-    padding: 0;
-    margin: 0;
-    max-height: 100px;
-    overflow-x: hidden;
-    width: 100%;
     resize: none;
+    overflow-y: auto;
 }
 
-    textarea:focus {
-        outline: none
-    }
+.text-container::after {
+    content: attr(data-replicated-value) " ";
+    white-space: pre-wrap;
+    word-break: break-word;
+    visibility: hidden;
+}
+
+textarea:focus {
+    outline: none
+}
