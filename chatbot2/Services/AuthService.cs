@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Chatbot.Application.Shared.ReqDtos;
+using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
 namespace chatbot2.Services
@@ -8,11 +9,13 @@ namespace chatbot2.Services
     {
         private readonly HttpClient httpClient;
         private readonly ILocalStorageService localStorageService;
+        private readonly NavigationManager navigationManager;
 
-        public AuthService(HttpClient httpClient,ILocalStorageService localStorageService)
+        public AuthService(HttpClient httpClient,ILocalStorageService localStorageService,NavigationManager navigationManager)
         {
             this.httpClient = httpClient;
             this.localStorageService = localStorageService;
+            this.navigationManager = navigationManager;
         }
 
         public async Task Register(RegisterReqDto registerReqDto)
@@ -43,6 +46,14 @@ namespace chatbot2.Services
             this.httpClient.DefaultRequestHeaders.Add("token", token);
         }
 
+
+        public async Task Logout()
+        {
+            await this.localStorageService.RemoveItemAsync("token");
+
+            navigationManager.NavigateTo("login");
+
+        }
 
         public async Task<bool> IsLoggedIn()
         {

@@ -126,7 +126,7 @@ else
 
     public void InterceptResponse(object sender, HttpClientInterceptorEventArgs e)
     {
-        if (!e.Response.IsSuccessStatusCode)
+        if (!e?.Response?.IsSuccessStatusCode ?? false)
             toastService.ShowError("An error has occured please try again later");
 
     }

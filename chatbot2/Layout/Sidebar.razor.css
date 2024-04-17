@@ -53,6 +53,16 @@
     display: none;
 }
 
+.logo-container {
+    width:36px;
+    padding:0.1rem;
+}
+
+.logo-container img{
+    height:100%;
+    width:100%;
+}
+
 @media only screen and (min-width : 1000px) {
     ::deep .link.new-chat-link.collapse {
         display: block;

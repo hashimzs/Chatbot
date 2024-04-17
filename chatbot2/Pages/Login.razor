@@ -5,7 +5,7 @@
 @using chatbot2.Services
 
 <FormPage Model="loginReq" Title="Login" OnValidSumbit="LoginClickedHandler">
-    <MdInputBox Type="email" Title="Email" @bind-Value="loginReq.Email" ValidationFor="()=>loginReq.Email" />
+    <MdInputBox Title="Email" @bind-Value="loginReq.Email" ValidationFor="()=>loginReq.Email" />
     <MdInputBox Type="password" Title="Password" @bind-Value="loginReq.Password" ValidationFor="()=>loginReq.Password" />
     <p style="font-size:0.8rem">Don't have an account <a href="register">Sign up</a></p>
     <MdButton Type="submit">

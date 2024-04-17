@@ -1,6 +1,7 @@
 ﻿@page "/profile"
 @using Blazored.LocalStorage
 @using System.Security.Claims
+@using chatbot2.Services
 @using chatbot2.helper
 @layout MainLayout
 
@@ -14,18 +15,23 @@
                     User data
                 </div>
                 <div class="profile-section">
-                    <div class="user-container">
-                        <div class="user-image">
-                            @Claims.First(v => v.Type == "unique_name").Value.ToUpper().First()
-                        </div>
-                        <div class="user-info">
-                            <div class="user-name">
-                                @Claims.First(v => v.Type == "unique_name").Value
+                    <div class="user-outer-container">
+                        <div class="user-container">
+                            <div class="user-image">
+                                @Claims.First(v => v.Type == "unique_name").Value.ToUpper().First()
                             </div>
-                            <div class="user-email">
-                                @Claims.First(v => v.Type == "email").Value
+                            <div class="user-info">
+                                <div class="user-name">
+                                    @Claims.First(v => v.Type == "unique_name").Value
+                                </div>
+                                <div class="user-email">
+                                    @Claims.First(v => v.Type == "email").Value
+                                </div>
                             </div>
                         </div>
+                        <chatbot2.Components.MdButton OnClick="authService.Logout">
+                            Logout
+                        </chatbot2.Components.MdButton>
                     </div>
                 </div>
             </div>
@@ -42,6 +48,8 @@
 }
 
 @code {
+    [Inject]
+    public AuthService authService { get; set; } = null!;
     [Inject]
     public ILocalStorageService localStorageService { get; set; } = null!;
 

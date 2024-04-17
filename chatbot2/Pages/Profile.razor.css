@@ -20,6 +20,12 @@
 }
 
 
+.user-outer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items:start;
+}
+
 .user-container {
     display: flex;
     align-items: center;
