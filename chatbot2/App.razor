@@ -126,6 +126,10 @@ else
 
     public void InterceptResponse(object sender, HttpClientInterceptorEventArgs e)
     {
+
+        if (e.Request?.RequestUri?.AbsolutePath?.ToLower().Contains("auth") ?? false)
+            return;
+
         if (!e?.Response?.IsSuccessStatusCode ?? false)
             toastService.ShowError("An error has occured please try again later");
 
