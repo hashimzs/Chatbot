@@ -61,18 +61,21 @@ namespace Chatbot.Api.Controllers
 
             GenerateAiRequestDto requestDto = new(quesReqDto.Message);
 
-            var transaction =  this.chatRepository.GetTransaction();
+            var transaction = this.chatRepository.GetTransaction();
+
+            Chat? NewChat = null;
 
             if (quesReqDto.ChatId == 0)
-                quesReqDto.ChatId = (await this.chatRepository.AddChat(this.GetUser().Id)).Id;
+            {
+                NewChat = await this.chatRepository.AddChat(this.GetUser().Id);
+                quesReqDto.ChatId = NewChat.Id;
+            }
             else
                 requestDto.History = await this.chatRepository.GetChatMessages(quesReqDto.ChatId)
                     .OrderByDescending(v => v.Id)
                     .Take(10)
-                    .Select(c=>c.Message)
+                    .Select(c => c.Message)
                     .ToListAsync();
-
-
 
             var UserMessage = new ChatMessage
             {
@@ -100,13 +103,23 @@ namespace Chatbot.Api.Controllers
 
             var chatDto = result.ToMessageDto();
 
-            return Ok(chatDto);
+            var AiResponseDto = new AiResponseDto
+            {
+                ChatMessage = chatDto,
+            };
+
+            if (NewChat != null)
+                AiResponseDto.ChatInfo = NewChat.ToChatDto();
+
+            return Ok(AiResponseDto);
         }
 
         private async Task<string> GetAiReply(GenerateAiRequestDto requestDto)
         {
             try
             {
+                return "hi";
+
                 string url = "http://localhost:105"; // Replace with your desired URL
 
                 using (HttpClient client = new HttpClient())

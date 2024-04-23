@@ -16,6 +16,15 @@ namespace Chatbot.Api.Extensions
                 FirstMessage = v.Messages.FirstOrDefault()!.Message ?? string.Empty
             });
         }
+        public static ChatInfoDto ToChatDto(this Chat chat)
+        {
+            return new ChatInfoDto
+            {
+                Id = chat.Id,
+                DateCreated = chat.Created,
+                FirstMessage = chat.Messages.FirstOrDefault()!.Message ?? string.Empty
+            };
+        }
         public static IQueryable<ChatMessageDto> ToMessageDto(this IQueryable<ChatMessage> messages)
         {
             return messages.Select(v => new ChatMessageDto

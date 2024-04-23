@@ -1,5 +1,6 @@
 ﻿using Chatbot.Api.Entities;
 using Chatbot.Api.Repositories;
+using Chatbot.Api.Services;
 using Chatbot.Application.Shared.ReqDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace Chatbot.Api.Controllers
             {
                 var user = await this.userRepository.GetUserByEmail(loginReqDto.Email);
 
-                if (user == null || user.Password != loginReqDto.Password)
+                if (user == null || !Hasher.ValidatePassword(loginReqDto.Password, user.Password))
                     return BadRequest("Invalid email or password");
 
                 var token = tokenManager.GenerateToken(user);
@@ -37,6 +38,7 @@ namespace Chatbot.Api.Controllers
             }
             catch (Exception)
             {
+                throw;
                 return BadRequest("An error occured while trying to login");
             }
         }
@@ -51,11 +53,12 @@ namespace Chatbot.Api.Controllers
                 if (ExistingUser != null)
                     return BadRequest("A user with the same email already exists");
 
+
                 var NewUser = new User
                 {
                     Name = registerReqDto.Name,
                     Email = registerReqDto.Email,
-                    Password = registerReqDto.Password,
+                    Password = Hasher.HashPassword(registerReqDto.Password),
                 };
 
                 await this.userRepository.AddUser(NewUser);

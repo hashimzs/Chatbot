@@ -14,10 +14,7 @@ namespace chatbot2.Services
         }
 
         public Action<int> OnChatDeleted { get; set; }
-        public async Task<ChatInfoDto> CreateNewChat(string Message)
-        {
-            return PlaceHolderData.Chats.First();
-        }
+        public Action<ChatInfoDto> OnChatStarted { get; set; }
 
         public async Task<PagedList<ChatInfoDto>> GetChats(PaginationParams paginationParams)
         {
@@ -36,9 +33,12 @@ namespace chatbot2.Services
                 throw new Exception(content);
             }
 
-            var ChatReply = await response.Content.ReadFromJsonAsync<ChatMessageDto>();
+            var ChatReply = await response.Content.ReadFromJsonAsync<AiResponseDto>();
 
-            return ChatReply!;
+            if (ChatReply.ChatInfo != null)
+                OnChatStarted.Invoke(ChatReply.ChatInfo);
+
+            return ChatReply.ChatMessage;
         }
 
         public async Task DeleteChat(int Id)

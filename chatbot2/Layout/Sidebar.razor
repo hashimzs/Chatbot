@@ -71,6 +71,17 @@
     protected override void OnInitialized()
     {
         chatService.OnChatDeleted += RemoveChat;
+        chatService.OnChatStarted += OnChatStartedHandler;
+    }
+
+    public void OnChatStartedHandler(ChatInfoDto chat)
+    {
+        if (paginationParams.PageSize == Chats.Count)
+            return;
+
+        Chats.Add(chat);
+
+        StateHasChanged();
     }
 
     public void RemoveChat(int Id)
@@ -82,5 +93,6 @@
     public void Dispose()
     {
         chatService.OnChatDeleted -= RemoveChat;
+        chatService.OnChatStarted -= OnChatStartedHandler;
     }
 }
