@@ -118,8 +118,6 @@ namespace Chatbot.Api.Controllers
         {
             try
             {
-                return "hi";
-
                 string url = "http://localhost:105"; // Replace with your desired URL
 
                 using (HttpClient client = new HttpClient())
