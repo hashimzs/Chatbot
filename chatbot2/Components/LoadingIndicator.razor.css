@@ -1,9 +1,9 @@
 ﻿
 .loader {
     height: 100%;
-    display:flex;
-    align-items:center;
-    gap:1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .loader-wheel {
@@ -16,8 +16,8 @@
 }
 
 .loader-text {
-    font-size:1rem;
-    font-weight:bold;
+    font-size: 1rem;
+    font-weight: bold;
     color: var(--accent-base);
     font-family: arial, sans-serif;
 }
@@ -26,6 +26,9 @@
         content: 'Generating response';
         animation: load 2s linear infinite;
     }
+
+
+
 
 @keyframes spin {
     0% {

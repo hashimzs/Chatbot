@@ -1,4 +1,13 @@
 ﻿<div class="loader">
     <div class="loader-wheel"></div>
-    <div class="loader-text"></div>
+    @if (ShowLoadingText)
+    {
+        <div class="loader-text"></div>
+    }
 </div>
+
+
+@code {
+    [Parameter]
+    public bool ShowLoadingText { get; set; } 
+}
